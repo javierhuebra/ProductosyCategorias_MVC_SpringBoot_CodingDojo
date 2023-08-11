@@ -29,4 +29,9 @@ public class CategoryServices {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
         return optionalCategory.orElse(null);
     }
+
+    //Categorias sin producto por id
+    public List<Category> buscarCategoriasDisponibles(Long id){
+        return categoryRepository.findCategoriesWithoutProduct(id);
+    }
 }

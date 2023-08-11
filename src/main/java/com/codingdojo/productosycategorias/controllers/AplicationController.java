@@ -71,16 +71,8 @@ public class AplicationController {
     @GetMapping("/products/{id}")
     public String renderDetailProduct(@PathVariable("id") Long id, Model model) {
         Product producto = productServices.buscarProducto(id);
-        List<Category> todasLasCategorias = categoryServices.allCategories();
-        List<Category> categoriasDisponibles = new ArrayList<>(todasLasCategorias);
+        List<Category> categoriasDisponibles = categoryServices.buscarCategoriasDisponibles(id);
 
-        Iterator<Category> iterator = categoriasDisponibles.iterator();
-        while (iterator.hasNext()) {
-            Category categoria = iterator.next();
-            if (producto.getCategories().contains(categoria)) {
-                iterator.remove();
-            }
-        }
 
         model.addAttribute("producto", producto);
         model.addAttribute("categorias", categoriasDisponibles);
